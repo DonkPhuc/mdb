@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 const { data, error, status, pending, refresh } = await useFetch(
-  "/api/projects"
+  "/api/projects",
+  { method: "get" }
 );
 </script>
 
