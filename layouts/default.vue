@@ -18,7 +18,6 @@ import {
   DocumentDuplicateIcon,
   FolderIcon,
   HomeIcon,
-  UsersIcon,
   XMarkIcon,
 } from "@heroicons/vue/24/outline";
 import { ChevronDownIcon, MagnifyingGlassIcon } from "@heroicons/vue/20/solid";
@@ -273,7 +272,7 @@ watchEffect(() => {
 
     <div class="lg:pl-72">
       <div
-        class="sticky top-0 z-40 flex h-16 shrink-0 items-center gap-x-4 border-b border-gray-200 bg-white px-4 shadow-sm sm:gap-x-6 sm:px-6 lg:px-8"
+        class="sticky top-0 z-40 flex h-16 shrink-0 items-center gap-x-4 border-b border-gray-200 light:bg-white dark:bg-gray-900 px-4 shadow-sm sm:gap-x-6 sm:px-6 lg:px-8"
       >
         <button
           type="button"
@@ -296,7 +295,7 @@ watchEffect(() => {
             />
             <input
               id="search-field"
-              class="block h-full w-full border-0 py-0 pl-8 pr-0 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm"
+              class="block h-full w-full border-0 py-0 pl-8 pr-0 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm light:bg-white dark:!bg-gray-900"
               placeholder="Search..."
               type="search"
               name="search"
@@ -328,7 +327,7 @@ watchEffect(() => {
                 />
                 <span class="hidden lg:flex lg:items-center">
                   <span
-                    class="ml-4 text-sm font-semibold leading-6 text-gray-900"
+                    class="ml-4 text-sm font-semibold leading-6 light:text-gray-900 dark:text-gray-200"
                     aria-hidden="true"
                     >Tom Cook</span
                   >
@@ -347,7 +346,7 @@ watchEffect(() => {
                 leave-to-class="transform opacity-0 scale-95"
               >
                 <MenuItems
-                  class="absolute right-0 z-10 mt-2.5 w-32 origin-top-right rounded-md bg-white py-2 shadow-lg ring-1 ring-gray-900/5 focus:outline-none"
+                  class="absolute right-0 z-10 mt-2.5 w-32 origin-top-right rounded-md bg-white text-black dark:bg-gray-900 py-2 shadow-lg ring-1 ring-gray-900/5 focus:outline-none"
                 >
                   <MenuItem
                     v-for="item in userNavigation"
@@ -357,25 +356,27 @@ watchEffect(() => {
                     <a
                       :href="item.href"
                       :class="[
-                        active ? 'bg-gray-50' : '',
-                        'block px-3 py-1 text-sm leading-6 text-gray-900',
+                        active ? 'bg-gray-50 dark:bg-gray-800' : '',
+                        'block px-3 py-1 text-sm leading-6 text-gray-900 dark:!text-white',
                       ]"
                       >{{ item.name }}</a
                     >
                   </MenuItem>
                   <MenuItems>
                     <div
-                      class="absolute right-0 z-10 mt-2.5 w-32 origin-top-right rounded-md bg-white py-2 shadow-lg ring-1 ring-gray-900/5 focus:outline-none"
+                      class="absolute right-0 z-10 mt-2.5 w-32 origin-top-right rounded-md py-2 shadow-lg ring-1 ring-gray-900/5 focus:outline-none"
                     >
-                      <select
-                        class="pl-2 text-sm leading-6 text-gray-900 bg-transparent border-0 focus:ring-0"
+                      <USelect
+                        :variant="
+                          $colorMode.preference === 'light' ? 'none' : 'outline'
+                        "
                         v-model="$colorMode.preference"
-                      >
-                        <option value="system">System</option>
-                        <option value="light">Light</option>
-                        <option value="dark">Dark</option>
-                        <option value="sepia">Sepia</option>
-                      </select>
+                        :options="[
+                          { value: 'system', label: 'System' },
+                          { value: 'light', label: 'Light' },
+                          { value: 'dark', label: 'Dark' },
+                        ]"
+                      />
                     </div>
                   </MenuItems>
                 </MenuItems>
@@ -385,7 +386,9 @@ watchEffect(() => {
         </div>
       </div>
 
-      <main class="py-10">
+      <main
+        class="py-10 light:bg-white light:text-black dark:bg-gray-900 dark:text-white"
+      >
         <div class="px-4 sm:px-6 lg:px-8">
           <slot />
         </div>

@@ -8,7 +8,7 @@ const { data, pending, error, refresh } = await useFetch("/api/dashboard");
     <p v-else-if="error">{{ error.message }}</p>
     <p v-else-if="data">{{ data }}</p>
     <div>
-      <UButton @click="refresh">Button</UButton>
+      <UButton color="gray" @click="refresh">Button</UButton>
     </div>
   </div>
 </template>

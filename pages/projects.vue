@@ -11,7 +11,7 @@ const { data, error, status, pending, refresh } = await useFetch(
     <p>status : {{ status }}</p>
     <p>pending : {{ pending }}</p>
     <div>
-      <UButton @click="refresh">Refresh</UButton>
+      <UButton color="gray" @click="refresh">Button</UButton>
     </div>
   </div>
 </template>
