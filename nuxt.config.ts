@@ -1,39 +1,19 @@
-// https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  extends: [process.env.NUXT_UI_PRO_PATH || "@nuxt/ui-pro"],
-  modules: [
-    "@nuxt/ui",
-    "@nuxtjs/fontaine",
-    "@nuxtjs/google-fonts",
-    "@vueuse/nuxt",
-  ],
-  ui: {
-    icons: ["heroicons", "simple-icons"],
-    safelistColors: ["primary", "red", "orange", "green"],
+  modules: ["@nuxt/ui", "@nuxtjs/color-mode"],
+
+  css: ["~/assets/css/tailwind.css"],
+
+  routeRules: {
+    // Generated at build time for SEO purpose
+    // "/": { prerender: true },
+    // Cached for 1 hour
+    // "/api/*": { cache: { maxAge: 60 * 60 } },
+    // Redirection to avoid 404
+    // "/old-page": {
+    //   redirect: { to: "/new-page", statusCode: 302 },
+    // },
   },
-  components: [
-    {
-      path: "~/components",
-    },
-    {
-      path: "~/components/common",
-      pathPrefix: false,
-    },
-  ],
-  // Fonts
-  fontMetrics: {
-    fonts: ["DM Sans"],
-  },
-  googleFonts: {
-    display: "swap",
-    download: true,
-    families: {
-      "DM+Sans": [300, 400, 500, 600, 700],
-    },
-  },
-  devtools: {
-    enabled: true,
-  },
+
   runtimeConfig: {
     // Will be available in the browser
     DB_URL: process.env.DB_URL,

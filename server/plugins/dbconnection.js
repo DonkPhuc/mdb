@@ -4,7 +4,7 @@ export default async function dbConnection() {
   const config = useRuntimeConfig();
   try {
     await mongoose.set("strictQuery", false);
-    await mongoose.connect(config.DB_URL, {
+    await mongoose.connect(config.db_url, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });

@@ -1,0 +1,6 @@
+{
+  "extends": "../.nuxt/tsconfig.server.json",
+  "compilerOptions": {
+    "outDir": "./dist" // Specify a different output directory
+  }
+}

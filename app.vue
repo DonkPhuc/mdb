@@ -1,42 +1,10 @@
 <script setup lang="ts">
-const colorMode = useColorMode();
-
-const color = computed(() =>
-  colorMode.value === "dark" ? "#111827" : "white"
-);
-
-useHead({
-  meta: [
-    { charset: "utf-8" },
-    { name: "viewport", content: "width=device-width, initial-scale=1" },
-    { key: "theme-color", name: "theme-color", content: color },
-  ],
-  link: [{ rel: "icon", href: "/favicon.ico" }],
-  htmlAttrs: {
-    lang: "en",
-  },
-});
-
-const title = "Phuc's Dashboard - Nuxt UI";
-
-useSeoMeta({
-  title,
-  ogTitle: title,
-  ogImage: "https://dashboard-template.nuxt.dev/social-card.png",
-  twitterImage: "https://dashboard-template.nuxt.dev/social-card.png",
-  twitterCard: "summary_large_image",
-});
+// You might choose this based on an API call or logged-in status
+const layout = "default";
 </script>
 
 <template>
-  <div>
-    <NuxtLoadingIndicator />
-
-    <NuxtLayout>
-      <NuxtPage />
-    </NuxtLayout>
-
-    <UNotifications />
-    <UModals />
-  </div>
+  <NuxtLayout :name="layout">
+    <NuxtPage />
+  </NuxtLayout>
 </template>
