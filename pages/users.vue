@@ -1,31 +1,31 @@
 <script lang="ts" setup>
-import type { User } from '~/types'
+import type { User } from "~/types"
 
 const defaultColumns = [{
-  key: 'id',
-  label: '#'
+  key: "id",
+  label: "#"
 }, {
-  key: 'name',
-  label: 'Name',
+  key: "name",
+  label: "Name",
   sortable: true
 }, {
-  key: 'email',
-  label: 'Email',
+  key: "email",
+  label: "Email",
   sortable: true
 }, {
-  key: 'location',
-  label: 'Location'
+  key: "location",
+  label: "Location"
 }, {
-  key: 'status',
-  label: 'Status'
+  key: "status",
+  label: "Status"
 }]
 
-const q = ref('')
+const q = ref("")
 const selected = ref<User[]>([])
 const selectedColumns = ref(defaultColumns)
 const selectedStatuses = ref([])
 const selectedLocations = ref([])
-const sort = ref({ column: 'id', direction: 'asc' as const })
+const sort = ref({ column: "id", direction: "asc" as const })
 const input = ref<{ input: HTMLInputElement }>()
 const isNewUserModalOpen = ref(false)
 
@@ -33,7 +33,7 @@ const columns = computed(() => defaultColumns.filter((column) => selectedColumns
 
 const query = computed(() => ({ q: q.value, statuses: selectedStatuses.value, locations: selectedLocations.value, sort: sort.value.column, order: sort.value.direction }))
 
-const { data: users, pending } = await useFetch<User[]>('/api/users', { query, default: () => [] })
+const { data: users, pending } = await useFetch<User[]>("/api/users", { query, default: () => [] })
 
 const defaultLocations = users.value.reduce((acc, user) => {
   if (!acc.includes(user.location)) {
@@ -59,7 +59,7 @@ function onSelect (row: User) {
 }
 
 defineShortcuts({
-  '/': () => {
+  "/": () => {
     input.value?.input?.focus()
   }
 })

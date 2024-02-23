@@ -12,7 +12,7 @@ function onDelete () {
 
   setTimeout(() => {
     loading.value = false
-    toast.add({ icon: 'i-heroicons-check-circle', title: 'Your account has been deleted', color: 'red' })
+    toast.add({ icon: "i-heroicons-check-circle", title: "Your account has been deleted", color: "red" })
     model.value = false
   }, 2000)
 }

@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { eachDayOfInterval, eachWeekOfInterval, eachMonthOfInterval, format } from 'date-fns'
-import { VisXYContainer, VisLine, VisAxis, VisArea, VisCrosshair, VisTooltip } from '@unovis/vue'
-import type { Period, Range } from '~/types'
+import { eachDayOfInterval, eachWeekOfInterval, eachMonthOfInterval, format } from "date-fns"
+import { VisXYContainer, VisLine, VisAxis, VisArea, VisCrosshair, VisTooltip } from "@unovis/vue"
+import type { Period, Range } from "~/types"
 
 const cardRef = ref<HTMLElement | null>(null)
 
@@ -45,19 +45,19 @@ const y = (d: DataRecord) => d.amount
 
 const total = computed(() => data.value.reduce((acc: number, { amount }) => acc + amount, 0))
 
-const formatNumber = new Intl.NumberFormat('en', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format
+const formatNumber = new Intl.NumberFormat("en", { style: "currency", currency: "USD", maximumFractionDigits: 0 }).format
 
 const formatDate = (date: Date): string => {
   return ({
-    daily: format(date, 'd MMM'),
-    weekly: format(date, 'd MMM'),
-    monthly: format(date, 'MMM yyy')
+    daily: format(date, "d MMM"),
+    weekly: format(date, "d MMM"),
+    monthly: format(date, "MMM yyy")
   })[props.period]
 }
 
 const xTicks = (i: number) => {
   if (i === 0 || i === data.value.length - 1 || !data.value[i]) {
-    return ''
+    return ""
   }
 
   return formatDate(data.value[i].date)

@@ -1,23 +1,21 @@
 module.exports = {
   root: true,
-  extends: [
-    '@nuxt/eslint-config'
-  ],
+  extends: ["@nuxt/eslint-config"],
   rules: {
     // Global
-    semi: ['error', 'never'],
-    quotes: ['error', 'single'],
-    'quote-props': ['error', 'as-needed'],
+    semi: ["error", "never"],
+    quotes: ["error", "double"],
+    "quote-props": ["error", "as-needed"],
     // Vue
-    'vue/multi-word-component-names': 0,
-    'vue/max-attributes-per-line': [
-      'warn',
+    "vue/multi-word-component-names": 0,
+    "vue/max-attributes-per-line": [
+      "warn",
       {
         singleline: {
-          max: 5
-        }
-      }
+          max: 5,
+        },
+      },
     ],
-    'vue/no-v-html': 0
-  }
-}
+    "vue/no-v-html": 0,
+  },
+};

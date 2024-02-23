@@ -1,14 +1,14 @@
 <script setup lang="ts">
-import { sub, format, isSameDay, type Duration } from 'date-fns'
-import type { Range } from '~/types'
+import { sub, format, isSameDay, type Duration } from "date-fns"
+import type { Range } from "~/types"
 
 const ranges = [
-  { label: 'Last 7 days', duration: { days: 7 } },
-  { label: 'Last 14 days', duration: { days: 14 } },
-  { label: 'Last 30 days', duration: { days: 30 } },
-  { label: 'Last 3 months', duration: { months: 3 } },
-  { label: 'Last 6 months', duration: { months: 6 } },
-  { label: 'Last year', duration: { years: 1 } }
+  { label: "Last 7 days", duration: { days: 7 } },
+  { label: "Last 14 days", duration: { days: 14 } },
+  { label: "Last 30 days", duration: { days: 30 } },
+  { label: "Last 3 months", duration: { months: 3 } },
+  { label: "Last 6 months", duration: { months: 6 } },
+  { label: "Last year", duration: { years: 1 } }
 ]
 
 const selected = defineModel({
