@@ -5,7 +5,7 @@ const state = reactive<{ [key: string]: boolean }>({
   product_updates: true,
   weekly_digest: false,
   important_updates: true
-})
+});
 
 const sections = [{
   title: "Notification channels",
@@ -35,11 +35,11 @@ const sections = [{
     label: "Important updates",
     description: "Receive emails about important updates like security fixes, maintenance, etc."
   }]
-}]
+}];
 
 async function onChange () {
   // Do something with data
-  console.log(state)
+  console.log(state);
 }
 </script>
 

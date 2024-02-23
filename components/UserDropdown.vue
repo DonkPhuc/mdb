@@ -1,7 +1,7 @@
 <script setup lang="ts">
-const { isHelpSlideoverOpen } = useDashboard()
-const { isDashboardSearchModalOpen } = useUIState()
-const { metaSymbol } = useShortcuts()
+const { isHelpSlideoverOpen } = useDashboard();
+const { isDashboardSearchModalOpen } = useUIState();
+const { metaSymbol } = useShortcuts();
 
 const items = computed(() => [
   [{
@@ -17,7 +17,7 @@ const items = computed(() => [
     icon: "i-heroicons-command-line",
     shortcuts: [metaSymbol.value, "K"],
     click: () => {
-      isDashboardSearchModalOpen.value = true
+      isDashboardSearchModalOpen.value = true;
     }
   }, {
     label: "Help & Support",
@@ -43,7 +43,7 @@ const items = computed(() => [
     label: "Sign out",
     icon: "i-heroicons-arrow-left-on-rectangle"
   }]
-])
+]);
 </script>
 
 <template>

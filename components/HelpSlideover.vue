@@ -1,9 +1,9 @@
 <script setup lang="ts">
-const { isHelpSlideoverOpen } = useDashboard()
-const { metaSymbol } = useShortcuts()
+const { isHelpSlideoverOpen } = useDashboard();
+const { metaSymbol } = useShortcuts();
 
-const shortcuts = ref(false)
-const query = ref("")
+const shortcuts = ref(false);
+const query = ref("");
 
 const links = [{
   label: "Shortcuts",
@@ -11,7 +11,7 @@ const links = [{
   trailingIcon: "i-heroicons-arrow-right-20-solid",
   color: "gray",
   onClick: () => {
-    shortcuts.value = true
+    shortcuts.value = true;
   }
 }, {
   label: "Documentation",
@@ -28,7 +28,7 @@ const links = [{
   icon: "i-heroicons-credit-card",
   to: "https://ui.nuxt.com/pro/purchase",
   target: "_blank"
-}]
+}];
 
 const categories = computed(() => [{
   title: "General",
@@ -52,16 +52,16 @@ const categories = computed(() => [{
     { shortcuts: ["↑"], name: "Prev notification" },
     { shortcuts: ["↓"], name: "Next notification" }
   ]
-}])
+}]);
 
 const filteredCategories = computed(() => {
   return categories.value.map(category => ({
     title: category.title,
     items: category.items.filter(item => {
-      return item.name.search(new RegExp(query.value, "i")) !== -1
+      return item.name.search(new RegExp(query.value, "i")) !== -1;
     })
-  })).filter(category => !!category.items.length)
-})
+  })).filter(category => !!category.items.length);
+});
 </script>
 
 <template>

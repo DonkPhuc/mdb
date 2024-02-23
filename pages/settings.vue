@@ -22,7 +22,7 @@ const links = [[{
     icon: "i-heroicons-credit-card",
     to: "https://ui.nuxt.com/pro/purchase",
     target: "_blank"
-  }]]
+  }]];
 </script>
 
 <template>

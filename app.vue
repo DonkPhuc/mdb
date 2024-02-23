@@ -1,9 +1,9 @@
 <script setup lang="ts">
-const colorMode = useColorMode()
+const colorMode = useColorMode();
 
 const color = computed(() =>
   colorMode.value === "dark" ? "#111827" : "white"
-)
+);
 
 useHead({
   meta: [
@@ -15,21 +15,17 @@ useHead({
   htmlAttrs: {
     lang: "en",
   },
-})
+});
 
-const title = "Nuxt UI Pro - Dashboard template"
-const description =
-  "Nuxt UI Pro is a collection of premium Vue components built on top of Nuxt UI to create beautiful & responsive Nuxt applications in minutes."
+const title = "Phuc's Dashboard - Nuxt UI";
 
 useSeoMeta({
   title,
-  description,
   ogTitle: title,
-  ogDescription: description,
   ogImage: "https://dashboard-template.nuxt.dev/social-card.png",
   twitterImage: "https://dashboard-template.nuxt.dev/social-card.png",
   twitterCard: "summary_large_image",
-})
+});
 </script>
 
 <template>

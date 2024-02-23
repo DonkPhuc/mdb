@@ -5,30 +5,37 @@ export default defineNuxtConfig({
     "@nuxt/ui",
     "@nuxtjs/fontaine",
     "@nuxtjs/google-fonts",
-    "@vueuse/nuxt"
+    "@vueuse/nuxt",
   ],
   ui: {
     icons: ["heroicons", "simple-icons"],
-    safelistColors: ["primary", "red", "orange", "green"]
+    safelistColors: ["primary", "red", "orange", "green"],
   },
-  components: [{
-    path: "~/components"
-  }, {
-    path: "~/components/common",
-    pathPrefix: false
-  }],
+  components: [
+    {
+      path: "~/components",
+    },
+    {
+      path: "~/components/common",
+      pathPrefix: false,
+    },
+  ],
   // Fonts
   fontMetrics: {
-    fonts: ["DM Sans"]
+    fonts: ["DM Sans"],
   },
   googleFonts: {
     display: "swap",
     download: true,
     families: {
-      "DM+Sans": [300, 400, 500, 600, 700]
-    }
+      "DM+Sans": [300, 400, 500, 600, 700],
+    },
   },
   devtools: {
-    enabled: true
-  }
-})
+    enabled: true,
+  },
+  runtimeConfig: {
+    // Will be available in the browser
+    DB_URL: process.env.DB_URL,
+  },
+});

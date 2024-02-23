@@ -1,7 +1,7 @@
 <script setup lang="ts">
-const route = useRoute()
-const appConfig = useAppConfig()
-const { isHelpSlideoverOpen } = useDashboard()
+const route = useRoute();
+const appConfig = useAppConfig();
+const { isHelpSlideoverOpen } = useDashboard();
 
 const links = [{
   id: "home",
@@ -51,7 +51,7 @@ const links = [{
     text: "Settings",
     shortcuts: ["G", "S"]
   }
-}]
+}];
 
 const footerLinks = [{
   label: "Invite people",
@@ -61,7 +61,7 @@ const footerLinks = [{
   label: "Help & Support",
   icon: "i-heroicons-question-mark-circle",
   click: () => isHelpSlideoverOpen.value = true
-}]
+}];
 
 const groups = [{
   key: "links",
@@ -75,13 +75,13 @@ const groups = [{
     label: "View page source",
     icon: "i-simple-icons-github",
     click: () => {
-      window.open(`https://github.com/nuxt-ui-pro/dashboard/blob/main/pages${route.path === "/" ? "/index" : route.path}.vue`, "_blank")
+      window.open(`https://github.com/nuxt-ui-pro/dashboard/blob/main/pages${route.path === "/" ? "/index" : route.path}.vue`, "_blank");
     }
   }]
-}]
+}];
 
-const defaultColors = ref(["green", "teal", "cyan", "sky", "blue", "indigo", "violet"].map(color => ({ label: color, chip: color, click: () => appConfig.ui.primary = color })))
-const colors = computed(() => defaultColors.value.map(color => ({ ...color, active: appConfig.ui.primary === color.label })))
+const defaultColors = ref(["green", "teal", "cyan", "sky", "blue", "indigo", "violet"].map(color => ({ label: color, chip: color, click: () => appConfig.ui.primary = color })));
+const colors = computed(() => defaultColors.value.map(color => ({ ...color, active: appConfig.ui.primary === color.label })));
 </script>
 
 <template>

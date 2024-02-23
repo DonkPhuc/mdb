@@ -3,7 +3,7 @@ module.exports = {
   extends: ["@nuxt/eslint-config"],
   rules: {
     // Global
-    semi: ["error", "never"],
+    semi: ["error", "always"],
     quotes: ["error", "double"],
     "quote-props": ["error", "as-needed"],
     // Vue

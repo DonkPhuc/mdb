@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import type { Mail } from "~/types"
+import type { Mail } from "~/types";
 
 const tabItems = [{
   label: "All"
 }, {
   label: "Unread"
-}]
-const selectedTab = ref(0)
+}];
+const selectedTab = ref(0);
 
 const dropdownItems = [[{
   label: "Mark as unread",
@@ -20,38 +20,38 @@ const dropdownItems = [[{
 }, {
   label: "Mute thread",
   icon: "i-heroicons-pause-circle"
-}]]
+}]];
 
-const { data: mails } = await useFetch<Mail[]>("/api/mails", { default: () => [] })
+const { data: mails } = await useFetch<Mail[]>("/api/mails", { default: () => [] });
 
 // Filter mails based on the selected tab
 const filteredMails = computed(() => {
   if (selectedTab.value === 1) {
-    return mails.value.filter(mail => !!mail.unread)
+    return mails.value.filter(mail => !!mail.unread);
   }
 
-  return mails.value
-})
+  return mails.value;
+});
 
-const selectedMail = ref<Mail | null>()
+const selectedMail = ref<Mail | null>();
 
 const isMailPanelOpen = computed({
   get () {
-    return !!selectedMail.value
+    return !!selectedMail.value;
   },
   set (value: boolean) {
     if (!value) {
-      selectedMail.value = null
+      selectedMail.value = null;
     }
   }
-})
+});
 
 // Reset selected mail if it's not in the filtered mails
 watch(filteredMails, () => {
   if (!filteredMails.value.find(mail => mail.id === selectedMail.value?.id)) {
-    selectedMail.value = null
+    selectedMail.value = null;
   }
-})
+});
 </script>
 
 <template>

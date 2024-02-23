@@ -5,7 +5,7 @@ const teams = [{
     src: "https://avatars.githubusercontent.com/u/23360933?s=200&v=4"
   },
   click: () => {
-    team.value = teams[0]
+    team.value = teams[0];
   }
 }, {
   label: "NuxtLabs",
@@ -13,9 +13,9 @@ const teams = [{
     src: "https://avatars.githubusercontent.com/u/62017400?s=200&v=4"
   },
   click: () => {
-    team.value = teams[1]
+    team.value = teams[1];
   }
-}]
+}];
 
 const actions = [{
   label: "Create team",
@@ -23,9 +23,9 @@ const actions = [{
 }, {
   label: "Manage teams",
   icon: "i-heroicons-cog-8-tooth"
-}]
+}];
 
-const team = ref(teams[0])
+const team = ref(teams[0]);
 </script>
 
 <template>

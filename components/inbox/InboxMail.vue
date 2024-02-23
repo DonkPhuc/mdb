@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { format, isToday } from "date-fns"
-import type { Mail } from "~/types"
+import { format, isToday } from "date-fns";
+import type { Mail } from "~/types";
 
 defineProps({
   mail: {
@@ -11,7 +11,7 @@ defineProps({
     type: Boolean,
     default: false
   }
-})
+});
 </script>
 
 <template>

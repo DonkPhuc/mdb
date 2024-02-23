@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { User } from "~/types"
+import type { User } from "~/types";
 
 const defaultColumns = [{
   key: "id",
@@ -18,51 +18,51 @@ const defaultColumns = [{
 }, {
   key: "status",
   label: "Status"
-}]
+}];
 
-const q = ref("")
-const selected = ref<User[]>([])
-const selectedColumns = ref(defaultColumns)
-const selectedStatuses = ref([])
-const selectedLocations = ref([])
-const sort = ref({ column: "id", direction: "asc" as const })
-const input = ref<{ input: HTMLInputElement }>()
-const isNewUserModalOpen = ref(false)
+const q = ref("");
+const selected = ref<User[]>([]);
+const selectedColumns = ref(defaultColumns);
+const selectedStatuses = ref([]);
+const selectedLocations = ref([]);
+const sort = ref({ column: "id", direction: "asc" as const });
+const input = ref<{ input: HTMLInputElement }>();
+const isNewUserModalOpen = ref(false);
 
-const columns = computed(() => defaultColumns.filter((column) => selectedColumns.value.includes(column)))
+const columns = computed(() => defaultColumns.filter((column) => selectedColumns.value.includes(column)));
 
-const query = computed(() => ({ q: q.value, statuses: selectedStatuses.value, locations: selectedLocations.value, sort: sort.value.column, order: sort.value.direction }))
+const query = computed(() => ({ q: q.value, statuses: selectedStatuses.value, locations: selectedLocations.value, sort: sort.value.column, order: sort.value.direction }));
 
-const { data: users, pending } = await useFetch<User[]>("/api/users", { query, default: () => [] })
+const { data: users, pending } = await useFetch<User[]>("/api/users", { query, default: () => [] });
 
 const defaultLocations = users.value.reduce((acc, user) => {
   if (!acc.includes(user.location)) {
-    acc.push(user.location)
+    acc.push(user.location);
   }
-  return acc
-}, [] as string[])
+  return acc;
+}, [] as string[]);
 
 const defaultStatuses = users.value.reduce((acc, user) => {
   if (!acc.includes(user.status)) {
-    acc.push(user.status)
+    acc.push(user.status);
   }
-  return acc
-}, [] as string[])
+  return acc;
+}, [] as string[]);
 
 function onSelect (row: User) {
-  const index = selected.value.findIndex((item) => item.id === row.id)
+  const index = selected.value.findIndex((item) => item.id === row.id);
   if (index === -1) {
-    selected.value.push(row)
+    selected.value.push(row);
   } else {
-    selected.value.splice(index, 1)
+    selected.value.splice(index, 1);
   }
 }
 
 defineShortcuts({
   "/": () => {
-    input.value?.input?.focus()
+    input.value?.input?.focus();
   }
-})
+});
 </script>
 
 <template>

@@ -31,7 +31,7 @@ const countries = [{
   label: "China",
   value: 1,
   color: "pink"
-}]
+}];
 </script>
 
 <template>
