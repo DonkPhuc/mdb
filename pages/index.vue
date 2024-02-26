@@ -2,6 +2,13 @@
 const { data, pending, error, refresh } = await useFetch("/api/dashboard", {
   method: "get",
 });
+
+const checkIN = async () => {
+  const { data } = await useFetch("/api/checkin", {
+    method: "post",
+  });
+  console.log(data);
+};
 </script>
 
 <template>
@@ -11,6 +18,9 @@ const { data, pending, error, refresh } = await useFetch("/api/dashboard", {
     <p v-else-if="data">{{ data }}</p>
     <div>
       <UButton color="gray" @click="refresh">Button</UButton>
+    </div>
+    <div>
+      <UButton color="gray" @click="checkIN">checkIN</UButton>
     </div>
   </div>
 </template>

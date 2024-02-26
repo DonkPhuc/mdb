@@ -4,7 +4,7 @@
   "type": "module",
   "scripts": {
     "build": "nuxt build",
-    "prod": "nuxt build & npx serve .nuxt/dist",
+    "prod": "nuxt buigenerateld & npx serve ./dist",
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
