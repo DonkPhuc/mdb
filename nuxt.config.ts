@@ -4,10 +4,6 @@ export default defineNuxtConfig({
 
   devtools: { enabled: true },
 
-  typescript: {
-    typeCheck: true,
-  },
-
   runtimeConfig: {
     DB_NAME: process.env.DB_NAME,
     DB_USERNAME: process.env.DB_USERNAME,
