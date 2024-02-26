@@ -4,24 +4,18 @@
   "type": "module",
   "scripts": {
     "build": "nuxt build",
-    "prod": "nuxt buigenerateld & npx serve ./dist",
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
-    "@headlessui/vue": "^1.7.19",
-    "@heroicons/vue": "^2.1.1",
-    "@nuxt/ui": "^2.14.0",
-    "@types/mongoose": "^5.11.97",
-    "axios": "^1.6.7",
-    "mongoose": "^8.2.0",
     "nuxt": "^3.10.3",
     "vue": "^3.4.19",
     "vue-router": "^4.3.0"
   },
   "devDependencies": {
-    "@nuxtjs/tailwindcss": "^6.11.4"
+    "typescript": "^5.3.3",
+    "vue-tsc": "^1.8.27"
   }
 }
