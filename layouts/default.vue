@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import {
   Dialog,
   DialogPanel,
@@ -41,9 +41,10 @@ const teams = [
 ];
 const userNavigation = [
   { name: "Your profile", href: "#" },
-  { name: "Sign out", href: "#" },
+  { name: "Sign out", href: "/login" },
 ];
 
+const { logout, user } = useAuth();
 const router = useRouter();
 const sidebarOpen = ref(false);
 const fullPath = computed(() => router.currentRoute.value.fullPath);
@@ -52,10 +53,21 @@ const fullPath = computed(() => router.currentRoute.value.fullPath);
  * Update the current state of the navigation items based on the current route.
  */
 watchEffect(() => {
+  // @ts-ignore
+  if (!user?.value?.accessToken) {
+    router.push("/login");
+  }
+
   navigation.value.forEach((item) => {
     item.current = item.href === fullPath.value;
   });
 });
+
+const handleClick = async (href: string) => {
+  if (href === "/login") {
+    await logout();
+  }
+};
 </script>
 
 <template>
@@ -113,7 +125,7 @@ watchEffect(() => {
               </TransitionChild>
               <!-- Sidebar component, swap this element with another sidebar if you like -->
               <div
-                class="flex grow flex-col gap-y-5 overflow-y-auto bg-gray-900 px-6 pb-4 ring-1 ring-white/10"
+                class="flex grow flex-col gap-y-5 overflow-y-auto dark:bg-gray-900 bg-white px-6 pb-4 ring-1 ring-white/10"
               >
                 <div class="flex h-16 shrink-0 items-center">
                   <img
@@ -199,7 +211,7 @@ watchEffect(() => {
     >
       <!-- Sidebar component, swap this element with another sidebar if you like -->
       <div
-        class="flex grow flex-col gap-y-5 overflow-y-auto bg-gray-900 px-6 pb-4"
+        class="flex grow flex-col gap-y-5 overflow-y-auto dark:bg-gray-900 px-6 pb-4 border-r border-gray-200 light:bg-white"
       >
         <div class="flex h-16 shrink-0 items-center">
           <img
@@ -218,7 +230,7 @@ watchEffect(() => {
                     :class="[
                       item.current
                         ? 'bg-gray-800 text-white'
-                        : 'text-gray-400 hover:text-white hover:bg-gray-800',
+                        : 'text-gray-400  hover:text-white hover:bg-gray-800',
                       'group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold',
                     ]"
                   >
@@ -354,6 +366,7 @@ watchEffect(() => {
                     v-slot="{ active }"
                   >
                     <a
+                      @click="handleClick(item.href)"
                       :href="item.href"
                       :class="[
                         active ? 'bg-gray-50 dark:bg-gray-800' : '',

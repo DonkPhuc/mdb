@@ -2,13 +2,6 @@
 const { data, pending, error, refresh } = await useFetch("/api/dashboard", {
   method: "get",
 });
-
-const checkIN = async () => {
-  const { data } = await useFetch("/api/checkin", {
-    method: "post",
-  });
-  console.log(data);
-};
 </script>
 
 <template>
