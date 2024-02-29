@@ -49,15 +49,7 @@ const router = useRouter();
 const sidebarOpen = ref(false);
 const fullPath = computed(() => router.currentRoute.value.fullPath);
 
-/**
- * Update the current state of the navigation items based on the current route.
- */
 watchEffect(() => {
-  // @ts-ignore
-  if (!user?.value?.accessToken) {
-    router.push("/login");
-  }
-
   navigation.value.forEach((item) => {
     item.current = item.href === fullPath.value;
   });

@@ -5,6 +5,8 @@ import {
   browserLocalPersistence,
   createUserWithEmailAndPassword,
   onAuthStateChanged,
+  GoogleAuthProvider,
+  signInWithPopup,
 } from "firebase/auth";
 
 export type User = {
@@ -48,6 +50,18 @@ export default function useAuth() {
       navigateTo("/login");
     } catch (error) {
       console.error("Error during logout:", error);
+    }
+  }
+
+  async function signInWithGoogle() {
+    const provider = new GoogleAuthProvider();
+    try {
+      const userDetails = await signInWithPopup(auth, provider);
+      user.value = userDetails.user;
+      const token = await userDetails.user.getIdToken();
+      await serverAuth(token);
+    } catch (error) {
+      console.error("Error during Google sign in:", error);
     }
   }
 
@@ -95,5 +109,5 @@ export default function useAuth() {
     }
   });
 
-  return { user, login, signUp, logout, errorBag };
+  return { user, login, signUp, signInWithGoogle, logout, errorBag };
 }
