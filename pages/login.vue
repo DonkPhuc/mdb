@@ -4,6 +4,11 @@ definePageMeta({
 });
 
 const { signInWithGoogle, signInWithGithub } = useAuth();
+const mode = ref<"LOGIN" | "REGISTER">("LOGIN");
+
+const handleChangeMode = () => {
+  mode.value = mode.value === "LOGIN" ? "REGISTER" : "LOGIN";
+};
 </script>
 
 <template>
@@ -25,7 +30,12 @@ const { signInWithGoogle, signInWithGithub } = useAuth();
       <div
         class="bg-white dark:bg-gray-900 px-6 py-12 shadow sm:rounded-lg sm:px-12"
       >
-        <FormSignIn />
+        <template v-if="mode === 'LOGIN'">
+          <FormSignIn />
+        </template>
+        <template v-else>
+          <FormSignUp />
+        </template>
 
         <div>
           <div class="relative mt-10">
@@ -92,11 +102,16 @@ const { signInWithGoogle, signInWithGithub } = useAuth();
       </div>
 
       <p class="mt-10 text-center text-sm text-gray-500">
-        Not a member?
+        {{
+          mode === "LOGIN"
+            ? "Don't have an account?"
+            : "Already have an account?"
+        }}
         <a
+          @click="handleChangeMode"
           href="#"
           class="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
-          >Start a 14 day free trial</a
+          >{{ mode === "LOGIN" ? "Sign Up" : "Sign In" }}</a
         >
       </p>
     </div>
