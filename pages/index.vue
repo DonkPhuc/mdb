@@ -4,6 +4,8 @@ const { user } = useAuth();
 
 <template>
   <div class="flex flex-col gap-4">
-    {{ user }}
+    <p class="break-all">
+      {{ user }}
+    </p>
   </div>
 </template>

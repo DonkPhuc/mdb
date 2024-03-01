@@ -7,6 +7,7 @@ import {
   onAuthStateChanged,
   GoogleAuthProvider,
   signInWithPopup,
+  GithubAuthProvider,
 } from "firebase/auth";
 
 export type User = {
@@ -65,6 +66,18 @@ export default function useAuth() {
     }
   }
 
+  async function signInWithGithub() {
+    const provider = new GithubAuthProvider();
+    try {
+      const userDetails = await signInWithPopup(auth, provider);
+      user.value = userDetails.user;
+      const token = await userDetails.user.getIdToken();
+      await serverAuth(token);
+    } catch (error) {
+      console.error("Error during Github sign in:", error);
+    }
+  }
+
   async function signUp({ email, password }: User) {
     setPersistence(auth, browserLocalPersistence).then(() => {
       createUserWithEmailAndPassword(auth, email, password).then(
@@ -109,5 +122,13 @@ export default function useAuth() {
     }
   });
 
-  return { user, login, signUp, signInWithGoogle, logout, errorBag };
+  return {
+    user,
+    login,
+    signUp,
+    signInWithGoogle,
+    signInWithGithub,
+    logout,
+    errorBag,
+  };
 }

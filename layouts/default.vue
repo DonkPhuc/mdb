@@ -26,19 +26,8 @@ const navigation = ref([
   { name: "Dashboard", href: "/", icon: HomeIcon, current: true },
   { name: "Projects", href: "/projects", icon: FolderIcon, current: false },
   { name: "Calendar", href: "/calendar", icon: CalendarIcon, current: false },
-  {
-    name: "Documents",
-    href: "/documents",
-    icon: DocumentDuplicateIcon,
-    current: false,
-  },
   { name: "Reports", href: "/reports", icon: ChartPieIcon, current: false },
 ]);
-const teams = [
-  { id: 1, name: "Heroicons", href: "#", initial: "H", current: false },
-  { id: 2, name: "Tailwind Labs", href: "#", initial: "T", current: false },
-  { id: 3, name: "Workcation", href: "#", initial: "W", current: false },
-];
 const userNavigation = [
   { name: "Your profile", href: "#" },
   { name: "Sign out", href: "/login" },
@@ -48,6 +37,15 @@ const { logout, user } = useAuth();
 const router = useRouter();
 const sidebarOpen = ref(false);
 const fullPath = computed(() => router.currentRoute.value.fullPath);
+
+onMounted(() => {
+  setTimeout(() => {
+    // @ts-ignore
+    if (user && !user.value?.uid) {
+      router.push("/login");
+    }
+  }, 500);
+});
 
 watchEffect(() => {
   navigation.value.forEach((item) => {
@@ -150,32 +148,7 @@ const handleClick = async (href: string) => {
                         </li>
                       </ul>
                     </li>
-                    <li>
-                      <div
-                        class="text-xs font-semibold leading-6 text-gray-400"
-                      >
-                        Your teams
-                      </div>
-                      <ul role="list" class="-mx-2 mt-2 space-y-1">
-                        <li v-for="team in teams" :key="team.name">
-                          <a
-                            :href="team.href"
-                            :class="[
-                              team.current
-                                ? 'bg-gray-800 text-white'
-                                : 'text-gray-400 hover:text-white hover:bg-gray-800',
-                              'group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold',
-                            ]"
-                          >
-                            <span
-                              class="flex h-6 w-6 shrink-0 items-center justify-center rounded-lg border border-gray-700 bg-gray-800 text-[0.625rem] font-medium text-gray-400 group-hover:text-white"
-                              >{{ team.initial }}</span
-                            >
-                            <span class="truncate">{{ team.name }}</span>
-                          </a>
-                        </li>
-                      </ul>
-                    </li>
+
                     <li class="mt-auto">
                       <a
                         href="#"
@@ -236,30 +209,7 @@ const handleClick = async (href: string) => {
                 </li>
               </ul>
             </li>
-            <li>
-              <div class="text-xs font-semibold leading-6 text-gray-400">
-                Your teams
-              </div>
-              <ul role="list" class="-mx-2 mt-2 space-y-1">
-                <li v-for="team in teams" :key="team.name">
-                  <a
-                    :href="team.href"
-                    :class="[
-                      team.current
-                        ? 'bg-gray-800 text-white'
-                        : 'text-gray-400 hover:text-white hover:bg-gray-800',
-                      'group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold',
-                    ]"
-                  >
-                    <span
-                      class="flex h-6 w-6 shrink-0 items-center justify-center rounded-lg border border-gray-700 bg-gray-800 text-[0.625rem] font-medium text-gray-400 group-hover:text-white"
-                      >{{ team.initial }}</span
-                    >
-                    <span class="truncate">{{ team.name }}</span>
-                  </a>
-                </li>
-              </ul>
-            </li>
+
             <li class="mt-auto">
               <a
                 href="#"
@@ -290,7 +240,9 @@ const handleClick = async (href: string) => {
         <!-- Separator -->
         <div class="h-6 w-px bg-gray-900/10 lg:hidden" aria-hidden="true" />
 
-        <div class="flex flex-1 gap-x-4 self-stretch lg:gap-x-6">
+        <div
+          class="flex flex-1 gap-x-4 self-stretch lg:gap-x-6 bg-white dark:bg-gray-900"
+        >
           <form class="relative flex flex-1" action="#" method="GET">
             <label for="search-field" class="sr-only">Search</label>
             <MagnifyingGlassIcon
@@ -368,21 +320,17 @@ const handleClick = async (href: string) => {
                     >
                   </MenuItem>
                   <MenuItems>
-                    <div
-                      class="absolute right-0 z-10 mt-2.5 w-32 origin-top-right rounded-md py-2 shadow-lg ring-1 ring-gray-900/5 focus:outline-none"
-                    >
-                      <USelect
-                        :variant="
-                          $colorMode.preference === 'light' ? 'none' : 'outline'
-                        "
-                        v-model="$colorMode.preference"
-                        :options="[
-                          { value: 'system', label: 'System' },
-                          { value: 'light', label: 'Light' },
-                          { value: 'dark', label: 'Dark' },
-                        ]"
-                      />
-                    </div>
+                    <USelect
+                      :variant="
+                        $colorMode.preference === 'light' ? 'none' : 'outline'
+                      "
+                      v-model="$colorMode.preference"
+                      :options="[
+                        { value: 'system', label: 'System' },
+                        { value: 'light', label: 'Light' },
+                        { value: 'dark', label: 'Dark' },
+                      ]"
+                    />
                   </MenuItems>
                 </MenuItems>
               </transition>
@@ -394,8 +342,8 @@ const handleClick = async (href: string) => {
       <main
         class="py-10 light:bg-white light:text-black dark:bg-gray-900 dark:text-white"
       >
-        <div class="px-4 sm:px-6 lg:px-8">
-          <slot />
+        <div class="px-4 sm:px-6 lg:px-8 h-screen">
+          <slot class="h-full w-full" />
         </div>
       </main>
     </div>
