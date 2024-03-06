@@ -118,6 +118,17 @@ export default function useAuth() {
 
   onAuthStateChanged(auth, (userDetails) => {
     if (userDetails) {
+      // Calculate the expiration date 7 days from now
+      const expirationDate = new Date()
+      expirationDate.setDate(expirationDate.getDate() + 7)
+
+      // Format the expiration date to the required format for cookies
+      const expires = expirationDate.toUTCString()
+
+      // Set the cookie with the updated expiration date
+      document.cookie = `userDetails=${JSON.stringify(userDetails)}; expires=${expires}; path=/`
+
+      // Optionally, you can update the 'user' value
       user.value = userDetails
     }
   })
