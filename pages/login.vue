@@ -1,14 +1,14 @@
 <script setup lang="ts">
 definePageMeta({
-  layout: "auth",
-});
+  layout: 'auth',
+})
 
-const { signInWithGoogle, signInWithGithub } = useAuth();
-const mode = ref<"LOGIN" | "REGISTER">("LOGIN");
+const { signInWithGoogle, signInWithGithub } = useAuth()
+const mode = ref<'LOGIN' | 'REGISTER'>('LOGIN')
 
 const handleChangeMode = () => {
-  mode.value = mode.value === "LOGIN" ? "REGISTER" : "LOGIN";
-};
+  mode.value = mode.value === 'LOGIN' ? 'REGISTER' : 'LOGIN'
+}
 </script>
 
 <template>
@@ -53,9 +53,9 @@ const handleChangeMode = () => {
 
           <div class="mt-6 grid grid-cols-2 gap-4">
             <a
-              @click="signInWithGoogle"
               href="#"
               class="flex w-full items-center justify-center gap-3 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus-visible:ring-transparent"
+              @click="signInWithGoogle"
             >
               <svg class="h-5 w-5" aria-hidden="true" viewBox="0 0 24 24">
                 <path
@@ -79,9 +79,9 @@ const handleChangeMode = () => {
             </a>
 
             <a
-              @click="signInWithGithub"
               href="#"
               class="flex w-full items-center justify-center gap-3 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus-visible:ring-transparent"
+              @click="signInWithGithub"
             >
               <svg
                 class="h-5 w-5 fill-[#24292F]"
@@ -103,15 +103,15 @@ const handleChangeMode = () => {
 
       <p class="mt-10 text-center text-sm text-gray-500">
         {{
-          mode === "LOGIN"
+          mode === 'LOGIN'
             ? "Don't have an account?"
-            : "Already have an account?"
+            : 'Already have an account?'
         }}
         <a
-          @click="handleChangeMode"
           href="#"
           class="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
-          >{{ mode === "LOGIN" ? "Sign Up" : "Sign In" }}</a
+          @click="handleChangeMode"
+          >{{ mode === 'LOGIN' ? 'Sign Up' : 'Sign In' }}</a
         >
       </p>
     </div>

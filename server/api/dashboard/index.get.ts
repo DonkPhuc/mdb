@@ -1,3 +1,3 @@
-export default defineEventHandler(async () => {
-  return { message: "Hello from dashboard" };
-});
+export default defineEventHandler(() => {
+  return { message: 'Hello from dashboard' }
+})

@@ -1,25 +1,23 @@
 <script setup lang="ts">
-import { object, string, type InferType } from "yup";
-import type { FormSubmitEvent, FormError } from "#ui/types";
-const router = useRouter();
+import { object, string } from 'yup'
+import type { FormSubmitEvent } from '#ui/types'
 
-const { login, signUp, errorBag } = useAuth();
+const { login, errorBag } = useAuth()
 
 const state = reactive({
-  email: "",
-  password: "",
-});
+  email: '',
+  password: '',
+})
 
 const schema = object({
-  email: string().email("Invalid email").required("Required"),
+  email: string().email('Invalid email').required('Required'),
   password: string()
-    .min(6, "Must be at least 6 characters")
-    .required("Required"),
-});
+    .min(6, 'Must be at least 6 characters')
+    .required('Required'),
+})
 
 async function onSubmit(event: FormSubmitEvent<any>) {
-  await login(event.data);
-  console.log(errorBag.value);
+  await login(event.data)
 }
 </script>
 

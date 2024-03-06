@@ -1,6 +1,6 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  modules: ["@nuxt/ui"],
+  modules: ['@nuxt/ui'],
 
   devtools: { enabled: true },
 
@@ -12,4 +12,4 @@ export default defineNuxtConfig({
     FIREBASE_APIKEY: process.env.FIREBASE_APIKEY,
     FIREBASE_APPID: process.env.FIREBASE_APPID,
   },
-});
+})

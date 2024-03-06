@@ -8,119 +8,119 @@ import {
   GoogleAuthProvider,
   signInWithPopup,
   GithubAuthProvider,
-} from "firebase/auth";
+} from 'firebase/auth'
 
 export type User = {
-  email: string;
-  password: string;
-};
+  email: string
+  password: string
+}
 
 export default function useAuth() {
-  const user = useState("userStore", () => ({}));
+  const user = useState('userStore', () => ({}))
   const errorBag = ref({
-    email: "",
-    password: "",
-  });
-  useFirebase();
+    email: '',
+    password: '',
+  })
+  useFirebase()
 
-  const auth = getAuth();
+  const auth = getAuth()
 
   async function login({ email, password }: User) {
-    resetErrors();
+    resetErrors()
     try {
-      await setPersistence(auth, browserLocalPersistence);
+      await setPersistence(auth, browserLocalPersistence)
       const userDetails = await signInWithEmailAndPassword(
         auth,
         email,
-        password
-      );
-      user.value = userDetails.user;
-      const token = await userDetails.user.getIdToken();
-      await serverAuth(token);
+        password,
+      )
+      user.value = userDetails.user
+      const token = await userDetails.user.getIdToken()
+      await serverAuth(token)
     } catch (error) {
       errorBag.value = {
-        email: "Invalid email",
-        password: "Invalid password",
-      };
+        email: 'Invalid email',
+        password: 'Invalid password',
+      }
     }
   }
 
   async function logout() {
     try {
-      await auth.signOut();
-      navigateTo("/login");
+      await auth.signOut()
+      navigateTo('/login')
     } catch (error) {
-      console.error("Error during logout:", error);
+      console.error('Error during logout:', error)
     }
   }
 
   async function signInWithGoogle() {
-    const provider = new GoogleAuthProvider();
+    const provider = new GoogleAuthProvider()
     try {
-      const userDetails = await signInWithPopup(auth, provider);
-      user.value = userDetails.user;
-      const token = await userDetails.user.getIdToken();
-      await serverAuth(token);
+      const userDetails = await signInWithPopup(auth, provider)
+      user.value = userDetails.user
+      const token = await userDetails.user.getIdToken()
+      await serverAuth(token)
     } catch (error) {
-      console.error("Error during Google sign in:", error);
+      console.error('Error during Google sign in:', error)
     }
   }
 
   async function signInWithGithub() {
-    const provider = new GithubAuthProvider();
+    const provider = new GithubAuthProvider()
     try {
-      const userDetails = await signInWithPopup(auth, provider);
-      user.value = userDetails.user;
-      const token = await userDetails.user.getIdToken();
-      await serverAuth(token);
+      const userDetails = await signInWithPopup(auth, provider)
+      user.value = userDetails.user
+      const token = await userDetails.user.getIdToken()
+      await serverAuth(token)
     } catch (error) {
-      console.error("Error during Github sign in:", error);
+      console.error('Error during Github sign in:', error)
     }
   }
 
-  async function signUp({ email, password }: User) {
+  function signUp({ email, password }: User) {
     setPersistence(auth, browserLocalPersistence).then(() => {
       createUserWithEmailAndPassword(auth, email, password).then(
         (userDetails) => {
-          user.value = userDetails.user;
+          user.value = userDetails.user
           userDetails.user.getIdToken().then((token) => {
-            serverAuth(token);
-          });
-        }
-      );
-    });
+            serverAuth(token)
+          })
+        },
+      )
+    })
   }
 
   function resetErrors() {
     errorBag.value = {
-      email: "",
-      password: "",
-    };
+      email: '',
+      password: '',
+    }
   }
 
   async function serverAuth(token: string) {
     try {
-      const response = await $fetch("api/auth/login", {
-        method: "POST",
+      const response = await $fetch('api/auth/login', {
+        method: 'POST',
         body: JSON.stringify({ token }),
-      });
+      })
 
       // @ts-ignore
       if (response.statusCode === 200) {
-        navigateTo("/");
+        navigateTo('/')
       } else {
-        throw new Error("Unexpected response from server");
+        throw new Error('Unexpected response from server')
       }
     } catch (error) {
-      console.error(error);
+      console.error(error)
     }
   }
 
   onAuthStateChanged(auth, (userDetails) => {
     if (userDetails) {
-      user.value = userDetails;
+      user.value = userDetails
     }
-  });
+  })
 
   return {
     user,
@@ -130,5 +130,5 @@ export default function useAuth() {
     signInWithGithub,
     logout,
     errorBag,
-  };
+  }
 }

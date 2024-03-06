@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose'
 
 const projectSchema = new mongoose.Schema({
   title: {
@@ -10,7 +10,7 @@ const projectSchema = new mongoose.Schema({
     type: String,
     trim: true,
   },
-});
+})
 
-const ProjectModel = mongoose.model("projects", projectSchema);
-export default ProjectModel;
+const ProjectModel = mongoose.model('projects', projectSchema)
+export default ProjectModel

@@ -1,34 +1,33 @@
 <script setup lang="ts">
-import { object, string, type InferType } from "yup";
-import type { FormSubmitEvent, FormError } from "#ui/types";
+import { object, string } from 'yup'
+import type { FormSubmitEvent } from '#ui/types'
 
-const { signUp, errorBag } = useAuth();
+const { signUp, errorBag } = useAuth()
 
 const state = reactive({
-  username: "",
-  email: "",
-  password: "",
-  confirmPassword: "",
-});
+  username: '',
+  email: '',
+  password: '',
+  confirmPassword: '',
+})
 
 const schema = object({
-  email: string().email("Invalid email").required("Required"),
+  email: string().email('Invalid email').required('Required'),
   username: string()
-    .min(6, "Must be at least 6 characters")
-    .required("Required"),
+    .min(6, 'Must be at least 6 characters')
+    .required('Required'),
   password: string()
-    .min(6, "Must be at least 6 characters")
-    .matches(/[a-z]/, "Must contain at least one lowercase letter")
-    .required("Required"),
+    .min(6, 'Must be at least 6 characters')
+    .matches(/[a-z]/, 'Must contain at least one lowercase letter')
+    .required('Required'),
   confirmPassword: string()
-    .min(6, "Must be at least 6 characters")
-    .matches(/[a-z]/, "Must contain at least one lowercase letter")
-    .required("Required"),
-});
+    .min(6, 'Must be at least 6 characters')
+    .matches(/[a-z]/, 'Must contain at least one lowercase letter')
+    .required('Required'),
+})
 
 async function onSubmit(event: FormSubmitEvent<any>) {
-  const result = await signUp(event.data);
-  console.log("🚀 ~ onSubmit ~ result:", result);
+  await signUp(event.data)
 }
 </script>
 

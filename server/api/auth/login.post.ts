@@ -1,30 +1,30 @@
-import { getAuth } from "firebase-admin/auth";
-import firebaseServer from "../utils/firebaseSever";
+import { getAuth } from 'firebase-admin/auth'
+import firebaseServer from '../utils/firebaseSever'
 
 export default defineEventHandler(async (event) => {
-  firebaseServer();
-  const { token } = await readBody(event);
+  firebaseServer()
+  const { token } = await readBody(event)
 
-  const expiresIn = 60 * 60 * 24 * 5 * 1000;
+  const expiresIn = 60 * 60 * 24 * 5 * 1000
 
   try {
     const options = {
       maxAge: expiresIn,
       httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-    };
+      secure: process.env.NODE_ENV === 'production',
+    }
 
     const authCookie = await getAuth().createSessionCookie(token, {
       expiresIn,
-    });
+    })
 
-    setCookie(event, "authCookie", authCookie, options);
+    setCookie(event, 'authCookie', authCookie, options)
 
     return {
       statusCode: 200,
-      message: "Auth successful",
-    };
+      message: 'Auth successful',
+    }
   } catch (err) {
-    throw createError({ statusCode: 401, statusMessage: "Unauthorized" });
+    throw createError({ statusCode: 401, statusMessage: 'Unauthorized' })
   }
-});
+})

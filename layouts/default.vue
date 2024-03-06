@@ -8,56 +8,46 @@ import {
   MenuItems,
   TransitionChild,
   TransitionRoot,
-} from "@headlessui/vue";
+} from '@headlessui/vue'
 import {
   Bars3Icon,
   BellIcon,
   CalendarIcon,
   ChartPieIcon,
   Cog6ToothIcon,
-  DocumentDuplicateIcon,
   FolderIcon,
   HomeIcon,
   XMarkIcon,
-} from "@heroicons/vue/24/outline";
-import { ChevronDownIcon, MagnifyingGlassIcon } from "@heroicons/vue/20/solid";
+} from '@heroicons/vue/24/outline'
+import { ChevronDownIcon, MagnifyingGlassIcon } from '@heroicons/vue/20/solid'
 
 const navigation = ref([
-  { name: "Dashboard", href: "/", icon: HomeIcon, current: true },
-  { name: "Projects", href: "/projects", icon: FolderIcon, current: false },
-  { name: "Calendar", href: "/calendar", icon: CalendarIcon, current: false },
-  { name: "Reports", href: "/reports", icon: ChartPieIcon, current: false },
-]);
+  { name: 'Dashboard', href: '/', icon: HomeIcon, current: true },
+  { name: 'Projects', href: '/projects', icon: FolderIcon, current: false },
+  { name: 'Calendar', href: '/calendar', icon: CalendarIcon, current: false },
+  { name: 'Reports', href: '/reports', icon: ChartPieIcon, current: false },
+])
 const userNavigation = [
-  { name: "Your profile", href: "#" },
-  { name: "Sign out", href: "/login" },
-];
+  { name: 'Your profile', href: '#' },
+  { name: 'Sign out', href: '/login' },
+]
 
-const { logout, user } = useAuth();
-const router = useRouter();
-const sidebarOpen = ref(false);
-const fullPath = computed(() => router.currentRoute.value.fullPath);
-
-onMounted(() => {
-  setTimeout(() => {
-    // @ts-ignore
-    if (user && !user.value?.uid) {
-      router.push("/login");
-    }
-  }, 500);
-});
+const { logout } = useAuth()
+const router = useRouter()
+const sidebarOpen = ref(false)
+const fullPath = computed(() => router.currentRoute.value.fullPath)
 
 watchEffect(() => {
   navigation.value.forEach((item) => {
-    item.current = item.href === fullPath.value;
-  });
-});
+    item.current = item.href === fullPath.value
+  })
+})
 
 const handleClick = async (href: string) => {
-  if (href === "/login") {
-    await logout();
+  if (href === '/login') {
+    await logout()
   }
-};
+}
 </script>
 
 <template>
@@ -310,21 +300,21 @@ const handleClick = async (href: string) => {
                     v-slot="{ active }"
                   >
                     <a
-                      @click="handleClick(item.href)"
                       :href="item.href"
                       :class="[
                         active ? 'bg-gray-50 dark:bg-gray-800' : '',
                         'block px-3 py-1 text-sm leading-6 text-gray-900 dark:!text-white',
                       ]"
+                      @click="handleClick(item.href)"
                       >{{ item.name }}</a
                     >
                   </MenuItem>
                   <MenuItems>
                     <USelect
+                      v-model="$colorMode.preference"
                       :variant="
                         $colorMode.preference === 'light' ? 'none' : 'outline'
                       "
-                      v-model="$colorMode.preference"
                       :options="[
                         { value: 'system', label: 'System' },
                         { value: 'light', label: 'Light' },
