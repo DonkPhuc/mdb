@@ -3,16 +3,15 @@ const url = 'http://192.168.1.217:13000/'
 const path = 'api/check_in_out'
 
 export default defineEventHandler(async (event) => {
+  const { token, day } = await readBody(event)
+  console.log('🚀 ~ defineEventHandler ~ token, day:', token, day)
   try {
-    // Get current date
     const currentDate = new Date()
-    // Set hours to 8
+    const selectedDay = day || Math.floor(Math.random() * 31) + 1
     currentDate.setHours(8)
-    // Set minutes to a random value between 27 and 30
     currentDate.setMinutes(27 + Math.floor(Math.random() * 4))
-    // Set seconds to a random value between 0 and 59
     currentDate.setSeconds(Math.floor(Math.random() * 60))
-    const body = await readBody(event)
+    currentDate.setDate(selectedDay)
 
     const response = await axios.post(
       `${url}${path}:create`,
@@ -30,13 +29,19 @@ export default defineEventHandler(async (event) => {
       },
       {
         headers: {
-          Authorization: `Bearer ${body.token}`,
+          Authorization: `Bearer ${token}`,
         },
       },
     )
+    if (response.data.data) {
+      return {
+        code: 200,
+        data: response.data.data,
+      }
+    }
     return {
-      code: 200,
-      data: response.data.data,
+      code: 501,
+      message: 'UNKNOWN',
     }
   } catch (error) {
     return {
