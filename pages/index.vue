@@ -1,8 +1,10 @@
 <script lang="ts" setup>
 const selected = ref(new Date().getDate())
-const token = ref(
-  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjE3LCJpYXQiOjE3MTE5NDY5OTcsImV4cCI6MTcxMjU1MTc5N30.wCfjh9MauyAFFKlOKN4SaSh3peNuQPJ4FNRXKE0N-5I',
-)
+const token = ref('')
+
+onMounted(() => {
+  token.value = localStorage.getItem('token') || ''
+})
 
 const daysInMonth = computed(() => {
   const currentDate = new Date()
@@ -19,6 +21,7 @@ const { data, refresh } = await useFetch('/api/dashboard', {
   method: 'post',
   immediate: false,
   onRequest({ options }) {
+    localStorage.setItem('token', token.value)
     options.body = {
       token: token.value,
       day: Number(selected.value),
@@ -36,18 +39,15 @@ const { data, refresh } = await useFetch('/api/dashboard', {
     <div v-for="(item, index) in data" :key="index">
       <p>{{ item }}</p>
     </div>
-    <div class="flex flex-col gap-4">
-      <div class="w-full">
-        <UInput
-          v-model="token"
-          color="primary"
-          variant="outline"
-          placeholder="Key"
-        />
-      </div>
-      <div class="flex gap-4">
-        {{ selected }}
-        <USelectMenu v-model="selected" class="w-48" :options="daysInMonth" />
+    <div class="flex flex-col gap-4 w-72">
+      <UInput
+        v-model="token"
+        color="primary"
+        variant="outline"
+        placeholder="Key"
+      />
+      <div class="flex gap-4 justify-between">
+        <USelectMenu v-model="selected" :options="daysInMonth" />
         <UButton label="Check" @click="refresh" />
       </div>
     </div>
